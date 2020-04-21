@@ -39,7 +39,7 @@ urlpatterns += [
 ]
 
 # Use static() to add url mapping to server static files during development (only)
-from django.conf import from django.conf import settings
+from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
