@@ -16,6 +16,30 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+# Use include() to add paths from the catalog application
+# includes a path() that forwards requests with the pattern
+# catalog/ to the module catalogs.urls
+from django.urls import include
+
+urlpatterns += [
+    path('catalog/', include('catalog.urls')),
+]
+
+# Add URL maps to redirect the base URL to our application
+from django.views.generic import RedirectView
+
+# The first patameter of the path function empty to imply '/'
+urlpatterns += [
+    path ('', RedirectView.as_view(url='catalog/', permanent = True)),
+]
+
+# Use static() to add url mapping to server static files during development (only)
+from django.conf import from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
