@@ -23,7 +23,7 @@ class Language (models.Model):
     # ---- Methods ----
     def __str__ (self):
         return self.name
-        
+
 # Book Model
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)"""
@@ -41,7 +41,7 @@ class Book(models.Model):
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     
-
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null = True)
     
     # ---- Methods ----
     def __str__(self):
