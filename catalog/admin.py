@@ -25,4 +25,5 @@ class BookAdmin(admin.ModelAdmin):
 # Register the Admin classes for BookInstance using the decorator
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
-    pass
+    # Used to filter which items are displayed
+    list_filter = ('status', 'due_back')
