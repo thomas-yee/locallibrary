@@ -8,6 +8,9 @@ admin.site.register(Genre)
 #admin.site.register(BookInstance)
 admin.site.register(Language)
 
+class BooksInline(admin.TabularInline):
+    model = Book
+
 # Define the admin class
 class AuthorAdmin (admin.ModelAdmin):
     # Used to display the data in a certain way
@@ -16,7 +19,8 @@ class AuthorAdmin (admin.ModelAdmin):
     # used to change how the fields on the form are displayed
     # tuple will display it horizontally
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
-
+    inlines = [BooksInline]
+    
 admin.site.register(Author, AuthorAdmin)
 
 # Used to add associated records at the same time
@@ -38,6 +42,8 @@ class BookAdmin(admin.ModelAdmin):
 # Register the Admin classes for BookInstance using the decorator
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
+    list_display = ('book', 'status', 'due_back', 'id')
+
     # Used to filter which items are displayed
     list_filter = ('status', 'due_back')
 
