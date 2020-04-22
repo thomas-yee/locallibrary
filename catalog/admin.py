@@ -19,6 +19,11 @@ class AuthorAdmin (admin.ModelAdmin):
 
 admin.site.register(Author, AuthorAdmin)
 
+# Used to add associated records at the same time
+# this will book instance informaiton inline to our book detail
+class BooksInstanceInline(admin.TabularInline):
+    model = BookInstance
+
 # Register the admin classes for Book using the decorator
 # Does the same thing as admin.site.register()
 @admin.register(Book)
@@ -26,6 +31,8 @@ class BookAdmin(admin.ModelAdmin):
     # can't specify the genre field since ManyToManyField would be too large
     # 'display_genre' is a call to the function in book class
     list_display = ('title', 'author', 'display_genre')
+    # add the inline class
+    inlines = [BooksInstanceInline]
     
 
 # Register the Admin classes for BookInstance using the decorator
