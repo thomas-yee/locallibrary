@@ -28,7 +28,7 @@ class Language (models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)"""
     # ---- Fields ----
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, help_text = "Title of the book")
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in the file
     # null = True -> allows database to store a null value if no author is selected
@@ -59,8 +59,8 @@ class BookInstance(models.Model):
     # UUIDField used to set id as primary key - Allocates a global unique value for each instance
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    imprint = models.CharField(max_length=200)
-    due_back = models.DateField(null=True, blank=True)
+    imprint = models.CharField(max_length=200, help_text = "Publishing Company")
+    due_back = models.DateField(null=True, blank=True, help_text = 'The date the book is due')
 
     # Key-pair values - Value is a display value the user can select
     # Keys are the values that are actually saved if it selected
