@@ -19,7 +19,7 @@ class Genre (models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)"""
     # ---- Fields ----
-    title = models.models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in the file
     # null = True -> allows database to store a null value if no author is selected
