@@ -18,7 +18,9 @@ admin.site.register(Author, AuthorAdmin)
 # Does the same thing as admin.site.register()
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    pass
+    # can't specify the genre field since ManyToManyField would be too large
+    # 'display_genre' is a call to the function in book class
+    list_display = ('title', 'author', 'display_genre')
 
 # Register the Admin classes for BookInstance using the decorator
 @admin.register(BookInstance)
