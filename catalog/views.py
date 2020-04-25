@@ -49,4 +49,8 @@ class BookListView(generic.ListView):
     #context_object_name = 'my_book_list'
     # Get 5 books containing the title
     #queryset = Book.objects.filter(title__icontains='silent')[:5]
+    # Adds pagination to the list views, reducing number of items displayed on each page
+    paginate_by = 4
     
+class BookDetailView(generic.DetailView):
+    model = Book
