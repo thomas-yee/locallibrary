@@ -1,6 +1,8 @@
 from django.shortcuts import render
 # import the model classes in order to access the data
 from catalog.models import Book, Author, BookInstance, Genre
+# import the generic list view
+from django.views import generic
 
 # Create your views here.
 # Used to process an HTTP request, fetch data from the database, and render
@@ -37,3 +39,14 @@ def index(request):
     # index.html expected to be found in catalog/templates/
     # context - python dictionary containing the data to insert into the placeholders
     return render(request, 'index.html', context=context)
+
+# use a class-based generic list view (ListView) - a class that inherits from an existing view
+class BookListView(generic.ListView):
+    """The generic view will query the database to get all records for the
+    specific model (Book) and render a template"""
+    model = Book
+    # your own name for the list as a template variable
+    #context_object_name = 'my_book_list'
+    # Get 5 books containing the title
+    #queryset = Book.objects.filter(title__icontains='silent')[:5]
+    

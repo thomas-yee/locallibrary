@@ -5,4 +5,6 @@ from . import views
 # view function that will be called if the URL pattern is detected : views.index()
 urlpatterns = [
     path('', views.index, name='index'),
+    # as_view() function used to create an instance of the class
+    path('books/', views.BookListView.as_view(), name='books') 
 ]
