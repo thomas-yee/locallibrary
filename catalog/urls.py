@@ -13,4 +13,6 @@ urlpatterns = [
     # can precede the variable name with a converter specification like int, str, path
     # pk (short for primary key) - id that is being used to store the book uniquely
     path('book/<int:pk>', views.BookDetailView.as_view(), name ='book-detail'),
+    path('authors/', views.AuthorListView.as_view(), name = 'authors'),
+    path('author/<int:pk>', views.AuthorDetailView.as_view(), name='author-detail')
 ]

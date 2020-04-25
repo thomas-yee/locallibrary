@@ -8,7 +8,7 @@
       <li>
         <!--Creates a list item for each book and shows the title (as link) and author
         use dot notation to access the fields of associated book record. book.get_absolute_url
-         grabs the URL to dsiaply the associated detail record-->
+         grabs the URL to disply the associated detail record-->
         <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
       </li>
     {% endfor %}
