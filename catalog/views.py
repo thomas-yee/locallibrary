@@ -21,9 +21,13 @@ def index(request):
     
     # The 'all()' is implied by default.    
     num_authors = Author.objects.count()
-    
     num_books_game = Book.objects.filter(title__contains='game').count()
     num_genres = Genre.objects.all().count()
+
+    # Number of visits to this view, as counted in the session variable
+    num_visits = request.session.get('num_visits', 0) # Sets to 0 if not previously been set
+    # Each time a request is received, increment the value and store it back in session
+    request.session['num_visits'] = num_visits + 1
 
     context = {
         'num_books': num_books,
@@ -31,7 +35,8 @@ def index(request):
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
         'num_books_game': num_books_game,
-        'num_genres': num_genres
+        'num_genres': num_genres,
+        'num_visits': num_visits,
     }
 
     # Render the HTML template index.html with the data in the context variable
