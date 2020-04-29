@@ -66,3 +66,17 @@ class AuthorListView(generic.ListView):
 
 class AuthorDetailView(generic.DetailView):
     model = Author
+
+# Used to add the view of list of books loaned to the current user
+# This import allows only the logged in user to call this view
+from django.contrib.auth.mixins import LoginRequiredMixin
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based vie wlisting books on loan to current user."""
+    model = BookInstance
+    # May have different lists of BookInstance records with different views and templates
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
+    paginate_by = 10
+
+    # Restrict query to just BookInstance objects for the current user
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')

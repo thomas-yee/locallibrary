@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 import uuid # Required for unique book instances
+from django.contrib.auth.models import User #used to import the user model
+from datetime import date
 
 # Create your models here.
 # Genre Model
@@ -67,6 +69,7 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200, help_text = "Publishing Company")
     due_back = models.DateField(null=True, blank=True, help_text = 'The date the book is due')
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     # Key-pair values - Value is a display value the user can select
     # Keys are the values that are actually saved if it selected
@@ -85,9 +88,16 @@ class BookInstance(models.Model):
         help_text = 'Book availability',
     )
 
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
+
     # Will be sorted alphabetically by due_back
     class Meta:
         ordering = ['due_back']
+        permissions = (("can_mark_returned", "Set book as returned"),)
 
     # ---- Methods ----
     def __str__ (self):
