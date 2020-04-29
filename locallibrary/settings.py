@@ -125,3 +125,6 @@ STATIC_URL = '/static/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+# Since the webiste does not support email, this will log any email sent to the console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
