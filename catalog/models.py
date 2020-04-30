@@ -97,7 +97,7 @@ class BookInstance(models.Model):
     # Will be sorted alphabetically by due_back
     class Meta:
         ordering = ['due_back']
-        permissions = (("can_edit", "Can edit the book"),)
+        permissions = (("catalog.can_mark_returned", "Can edit the book"),)
 
     # ---- Methods ----
     def __str__ (self):
